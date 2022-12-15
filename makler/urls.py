@@ -34,7 +34,7 @@ urlpatterns = [
     path('users/', include('user.urls')),
     path('admin/', admin.site.urls),
     path('products/', include('products.urls')),
-    path('authorization/', include('authorization.urls')),
+    # path('authorization/', include('authorization.urls')),
     path('api/v1/categories/', CategoryListAPIView.as_view()),
     path('api/v1/amenities/', AmenitiesListAPIView.as_view()),
     path('web/api/v1/web-amenities/', WebAmenitiesListAPIView.as_view()),
