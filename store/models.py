@@ -12,9 +12,9 @@ class StoreAmenities(models.Model):
     def __str__(self):
         return self.title
 
-    class Meta:
-        verbose_name = _('Store_amenities')
-        verbose_name_plural = _('Store_amenities')
+    # class Meta:
+    #     verbose_name = _('Store_amenities')
+    #     verbose_name_plural = _('Store_amenities')
 
 
 class UseForModel(models.Model):
@@ -24,9 +24,9 @@ class UseForModel(models.Model):
     def __str__(self):
         return self.title
 
-    class Meta:
-        verbose_name = _('Для')
-        verbose_name_plural = _('Для')
+    # class Meta:
+    #     verbose_name = _('Для')
+    #     verbose_name_plural = _('Для')
 
 
 class StoreModel(models.Model):
@@ -68,10 +68,10 @@ class StoreModel(models.Model):
         wishlist = request.session.get('wishlist', [])
         return StoreModel.objects.filter(pk__in=wishlist)
 
-    class Meta:
-        verbose_name = _('Обустройствo дома')
-        verbose_name_plural = _('Обустройствo дома')
-        ordering = ['-id']
+    # class Meta:
+    #     verbose_name = _('Обустройствo дома')
+    #     verbose_name_plural = _('Обустройствo дома')
+    #     ordering = ['-id']
 
 # tempaltes, update
 # tempaltes, admin

@@ -9,9 +9,9 @@ class MasterProfessionModel(models.Model):
     def __str__(self):
         return self.title
 
-    class Meta:
-        verbose_name = _('Профессия')
-        verbose_name_plural = _('Профессии')
+    # class Meta:
+    #     verbose_name = _('Профессия')
+    #     verbose_name_plural = _('Профессии')
 
 
 
@@ -57,16 +57,16 @@ class MasterModel(models.Model):
         wishlist = request.session.get('wishlist', [])
         return MasterModel.objects.filter(pk__in=wishlist)
 
-    class Meta:
-        verbose_name = _('Мастер')
-        verbose_name_plural = _('Мастеры')
-        ordering = ['-id']
+    # class Meta:
+    #     verbose_name = _('Мастер')
+    #     verbose_name_plural = _('Мастеры')
+    #     ordering = ['-id']
 
 
 class MasterImagesModel(models.Model):
     master = models.ForeignKey(MasterModel, on_delete=models.CASCADE, related_name='images')
     images = models.FileField(upload_to='master_images', max_length=100, null=True)
 
-    class Meta:
-        verbose_name = _('Изображения для мастера')
-        verbose_name_plural = _('Изображения для мастеров')
+    # class Meta:
+    #     verbose_name = _('Изображения для мастера')
+    #     verbose_name_plural = _('Изображения для мастеров')

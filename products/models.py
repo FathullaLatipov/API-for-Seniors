@@ -14,9 +14,9 @@ class CategoryModel(models.Model):
     def __str__(self):
         return self.title
 
-    class Meta:
-        verbose_name = _('Категория')
-        verbose_name_plural = _('Категории')
+    # class Meta:
+    #     verbose_name = _('Категория')
+    #     verbose_name_plural = _('Категории')
 
 
 class AmenitiesModel(models.Model):
@@ -27,9 +27,9 @@ class AmenitiesModel(models.Model):
     def __str__(self):
         return self.title
 
-    class Meta:
-        verbose_name = _('Все удобства')
-        verbose_name_plural = _('Все удобства')
+    # class Meta:
+    #     verbose_name = _('Все удобства')
+    #     verbose_name_plural = _('Все удобства')
 
 
 class MapModel(models.Model):
@@ -41,9 +41,9 @@ class MapModel(models.Model):
     def __str__(self):
         return self.addressName
 
-    class Meta:
-        verbose_name = _('Карта')
-        verbose_name_plural = _('Карты')
+    # class Meta:
+    #     verbose_name = _('Карта')
+    #     verbose_name_plural = _('Карты')
 
 
 class ImagesModel(models.Model):
@@ -60,9 +60,9 @@ class PriceListModel(models.Model):
     def __str__(self):
         return self.price_t
 
-    class Meta:
-        verbose_name = _('Цена')
-        verbose_name_plural = _('Цены')
+    # class Meta:
+    #     verbose_name = _('Цена')
+    #     verbose_name_plural = _('Цены')
 
 
 class HowSaleModel(models.Model):
@@ -72,9 +72,9 @@ class HowSaleModel(models.Model):
     def __str__(self):
         return self.title
 
-    class Meta:
-        verbose_name = _('Как продавать')
-        verbose_name_plural = _('Как продавать')
+    # class Meta:
+    #     verbose_name = _('Как продавать')
+    #     verbose_name_plural = _('Как продавать')
 
 
 class HouseModel(models.Model):
@@ -208,10 +208,10 @@ class HouseModel(models.Model):
     # def choices(self):
     #     return [{'rental_type': self.rental_type}, ['object', self.object], ['building_type', self.building_type]]
 
-    class Meta:
-        verbose_name = _('Маклер, (квартиры и т.д)')
-        verbose_name_plural = _('Маклер, (квартиры и т.д)')
-        ordering = ['-id']
+    # class Meta:
+    #     verbose_name = _('Маклер, (квартиры и т.д)')
+    #     verbose_name_plural = _('Маклер, (квартиры и т.д)')
+    #     ordering = ['-id']
 
 
 class NewHouseImages(models.Model):
@@ -225,9 +225,9 @@ class HouseImageModel(models.Model):
     image = models.ImageField(upload_to='house_images', verbose_name=_('image'))
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('created_at'))
 
-    class Meta:
-        verbose_name = _('Изображения маклер (квартиры и т.д)')
-        verbose_name_plural = _('Изображения маклер (квартиры и т.д)')
+    # class Meta:
+    #     verbose_name = _('Изображения маклер (квартиры и т.д)')
+    #     verbose_name_plural = _('Изображения маклер (квартиры и т.д)')
 
 
 class UserWishlistModel(models.Model):
@@ -238,9 +238,9 @@ class UserWishlistModel(models.Model):
     def __str__(self):
         return self.product.title
 
-    class Meta:
-        verbose_name = _('Wishlist')
-        verbose_name_plural = _('Wishlist')
+    # class Meta:
+    #     verbose_name = _('Wishlist')
+    #     verbose_name_plural = _('Wishlist')
 
 # class HouseOptionsModel(models.Model):
 #     product = models.ForeignKey(HouseModel, on_delete=models.PROTECT, related_name='products_options',
