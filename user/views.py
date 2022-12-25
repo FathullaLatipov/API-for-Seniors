@@ -12,14 +12,10 @@ from rest_framework.viewsets import GenericViewSet
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView
 
-from masters.models import MasterModel
 from products.models import HouseModel
-from store.models import StoreModel
 from .models import CustomUser
 
-from products.serializers import HomeSerializer
-from masters.serializers import MasterSerializer
-from store.serializers import StoreModelSerializer
+from products.serializers import NewAllWebHomeCreateSerializer
 
 from .serializers import RegistrationSerializer, UserSerializer, LoginSerializer, UserALLSerializer, \
     UpdateUserSerializer
@@ -89,25 +85,18 @@ class UserProfile(APIView):
 
     def get_object(self, user, pk=None):
         houses = HouseModel.objects.filter(creator=user)
-        masters = MasterModel.objects.filter(owner=user)
-        stores = StoreModel.objects.filter(creator=user)
 
         data = {
             'houses': houses,
-            'masters': masters,
-            'stores': stores,
         }
         return data
 
     def get(self, request, **kwargs):
         announcements = self.get_object(user=request.user)
-        housesserializer = HomeSerializer(announcements.get('houses'), many=True).data
-        mastersserializer = MasterSerializer(announcements.get('masters'), many=True).data
-        storesserializer = StoreModelSerializer(announcements.get('stores'), many=True).data
+        housesserializer = NewAllWebHomeCreateSerializer(announcements.get('houses'), many=True).data
 
         data = {
-            'announcements': {'HOUSEMODEL': housesserializer, 'MASTERMODEL': mastersserializer,
-                              'STORAGEMODEL': storesserializer}
+            'announcements': {'HOUSEMODEL': housesserializer,}
         }
         return Response(data, status=200)
 

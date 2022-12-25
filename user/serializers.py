@@ -7,9 +7,7 @@ from rest_framework import serializers
 from rest_framework_simplejwt.settings import api_settings
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
-from masters.serializers import MasterSerializer
-from products.serializers import HomeSerializer, NewAllWebHomeCreateSerializer
-from store.serializers import StoreModelSerializer
+from products.serializers import NewAllWebHomeCreateSerializer
 from user.models import CustomUser
 
 
@@ -108,8 +106,6 @@ class LoginSerializer(serializers.Serializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    maklers = MasterSerializer(many=True)
-    stores = StoreModelSerializer(many=True)
     houses = NewAllWebHomeCreateSerializer(many=True)
 
     class Meta:

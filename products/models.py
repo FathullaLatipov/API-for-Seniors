@@ -1,4 +1,6 @@
 from django.db import models
+from django.template.defaultfilters import slugify
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from multiselectfield import MultiSelectField
 
@@ -76,7 +78,6 @@ class HowSaleModel(models.Model):
         verbose_name = _('Как продавать')
         verbose_name_plural = _('Как продавать')
 
-
 class HouseModel(models.Model):
     creator = models.ForeignKey('user.CustomUser', on_delete=models.CASCADE, related_name='houses', null=True,
                                 blank=True)
@@ -84,6 +85,7 @@ class HouseModel(models.Model):
     category = models.ForeignKey(CategoryModel, on_delete=models.CASCADE, verbose_name=_('category'),
                                  related_name=_('category'), null=True, blank=True
                                  )
+    view_count = models.PositiveIntegerField(default=0, null=True)
     descriptions = models.TextField(verbose_name=_('descriptions'))
     price = models.CharField(max_length=100, verbose_name=_('price'))
     app_currency = models.CharField(max_length=10, verbose_name=_('app_currency'), null=True)
@@ -96,8 +98,9 @@ class HouseModel(models.Model):
     app_new_building = models.BooleanField(default=False, null=True)
     price_type = models.ForeignKey(PriceListModel, on_delete=models.CASCADE, related_name='price_types', null=True)
     ADD_TYPE = (
-        ('rent', 'Rent'),
-        ('for_sale', 'For_sale'),
+        ('купить', 'Купить'),
+        ('продать', 'Продать'),
+        ('аденда', 'Аренда'),
     )
     type = models.CharField(
         max_length=200,
@@ -108,18 +111,18 @@ class HouseModel(models.Model):
     )
     web_address_title = models.CharField(max_length=400, verbose_name=_('web_address_title'), null=True)
     web_address_latitude = models.FloatField(verbose_name=_('web_address_latitude'), null=True)
-    web_address_longtitude = models.FloatField(verbose_name=_('pm_general'), null=True)
+    web_address_longtitude = models.FloatField(verbose_name=_('web_address_longtitude'), null=True)
     how_sale = models.ForeignKey(HowSaleModel, on_delete=models.CASCADE, null=True, blank=True)
-    pm_general = models.CharField(max_length=400, verbose_name=_('pm_residential'), null=True)
+    pm_general = models.CharField(max_length=400, verbose_name=_('pm_general'), null=True)
     web_type = models.CharField(max_length=400, verbose_name=_('web_type'), null=True)
     web_rental_type = models.CharField(max_length=400, verbose_name=_('web_rental_type'), null=True)
     pm_residential = models.CharField(max_length=500, verbose_name=_('pm_kitchen'), null=True)
     pm_kitchen = models.CharField(max_length=300, verbose_name=_('pm_kitchen2'), null=True)
     web_building_type = models.CharField(max_length=600, verbose_name=_('web_building_type'), null=True)
     RENTAL_TYPE = (
-        ('long_time', 'Long_time'),
-        ('several_months', 'Several_months'),
-        ('daily', 'Daily')
+        ('длительно', 'Длительно'),
+        ('несколько месяцев', 'несколько месяцев'),
+        ('посуточно', 'посуточно')
     )
     rental_type = models.CharField(
         max_length=200,
@@ -129,17 +132,17 @@ class HouseModel(models.Model):
         blank=True,
     )
     PROPERTY_TYPE = (
-        ('residential', 'Residential'),
-        ('commercial', 'Commercial')
+        ('жилая', 'жилая'),
+        ('коммерческая', 'коммерческая')
     )
     OBJECT = (
-        ('flat', 'Flat'),
-        ('room', 'Room'),
-        ('summer_cottage', 'Summer_cottage'),
-        ('house', 'House'),
-        ('part_house', 'Part_house'),
-        ('townhouse', 'Townhouse'),
-        ('bed_space', 'Bed_space')
+        ('квартира', 'квартиру'),
+        ('комната', 'комната'),
+        ('дача', 'дача'),
+        ('дома', 'дома'),
+        ('участка', 'участка'),
+        ('таунхаус', 'Townhouse'),
+        ('спальное', 'Bed_space')
     )
     object = models.CharField(
         max_length=200,
@@ -163,10 +166,10 @@ class HouseModel(models.Model):
     floor = models.CharField(max_length=30, verbose_name=_('floor'))
     floor_from = models.CharField(max_length=30, verbose_name=_('floor_from'))
     BUILDING_TYPE = (
-        ('brick', 'Brick'),
-        ('monolith', 'Monolith'),
-        ('panel', 'Panel'),
-        ('blocky', 'Blocky')
+        ('кирпич', 'кирпич'),
+        ('монолит', 'монолит'),
+        ('панель', 'панель'),
+        ('блочный', 'блочный')
     )
     building_type = models.CharField(
         max_length=50,
@@ -204,10 +207,6 @@ class HouseModel(models.Model):
         wishlist = request.session.get('wishlist', [])
         return HouseModel.objects.filter(pk__in=wishlist)
 
-    # @property
-    # def choices(self):
-    #     return [{'rental_type': self.rental_type}, ['object', self.object], ['building_type', self.building_type]]
-
     class Meta:
         verbose_name = _('Маклер, (квартиры и т.д)')
         verbose_name_plural = _('Маклер, (квартиры и т.д)')
@@ -241,12 +240,3 @@ class UserWishlistModel(models.Model):
     class Meta:
         verbose_name = _('Wishlist')
         verbose_name_plural = _('Wishlist')
-
-# class HouseOptionsModel(models.Model):
-#     product = models.ForeignKey(HouseModel, on_delete=models.PROTECT, related_name='products_options',
-#                                 verbose_name=_('product'), null=True, blank=True)
-#     created_at = models.DateTimeField(auto_now_add=True)
-#
-#     class Meta:
-#         verbose_name = _('product_options')
-#         verbose_name_plural = _('product_options')

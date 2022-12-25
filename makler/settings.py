@@ -43,9 +43,7 @@ INSTALLED_APPS = [
 
     # django apps
     'products',
-    'masters',
     'user',
-    'store',
     'authorization',
 ]
 

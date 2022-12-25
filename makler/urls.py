@@ -18,8 +18,8 @@ from django.urls import path, include
 from .yasg import urlpatterns as doc_urls
 from rest_framework.routers import DefaultRouter
 
-from products.views import CategoryListAPIView, AmenitiesListAPIView, HouseFavListAPIView, WebAmenitiesListAPIView, \
-    WebPriceListAPIView, snippet_list
+from products.views import CategoryListAPIView, AmenitiesListAPIView, HouseFavListAPIView, \
+     snippet_list
 
 from django.conf.urls.static import static
 from django.conf import settings
@@ -29,29 +29,11 @@ router = DefaultRouter()
 
 
 urlpatterns = [
-    path('master/', include('masters.urls')),
-    path('store2/', include('store.urls')),
     path('users/', include('user.urls')),
     path('admin/', admin.site.urls),
     path('products/', include('products.urls')),
     path('authorization/', include('authorization.urls')),
     path('api/v1/categories/', CategoryListAPIView.as_view()),
-    path('api/v1/amenities/', AmenitiesListAPIView.as_view()),
-    path('web/api/v1/web-amenities/', WebAmenitiesListAPIView.as_view()),
-    path('web/api/v1/web-prices/', WebPriceListAPIView.as_view()),
-    path('api/v1/fav/', HouseFavListAPIView.as_view()),
-
-    # path('posts/', PostList.as_view()),
-    # path('posts/<int:pk>/', PostDetail.as_view()),
-    # path('web/api/v1/web-houses/', WebHomeCreateView.as_view()),
-    # path('api/v1/houses/create/', HouseAddCreateAPIView.as_view()),
-    # path('api/v1/houses/archived/', HouseArchiveListAPIView.as_view()),
-    # path('api/v1/login', LoginView.as_view()),
-    # path('api/v1/auth/', include('djoser.urls.authtoken')),
-    # path('api/v1/store/create/', StoreAddCreateAPIView.as_view()),
-    # path('web/api/v1/web-houses', WebHomeCreateView),
-    # path('user/', include()),
-    # path('web2/', snippet_list),
 ]
 
 urlpatterns += doc_urls
